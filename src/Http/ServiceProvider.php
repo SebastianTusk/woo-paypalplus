@@ -40,7 +40,8 @@ class ServiceProvider implements BootstrappableServiceProvider
         try {
             $fileSystem = $container->get('wp_filesystem');
         } catch (UnexpectedValueException $exc) {
-            $container->get(Logger::class)->warning($exc->getMessage());
+            // $container->get(Logger::class)->warning($exc->getMessage());
+			error_log($exc->getMessage());
             return;
         }
 
@@ -88,6 +89,8 @@ class ServiceProvider implements BootstrappableServiceProvider
      */
     public function bootstrap(Container $container)
     {
+		return;
+		
         $cronScheduler = $container->get(CronScheduler::class);
 
         add_filter(
