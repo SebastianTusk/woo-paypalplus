@@ -44,7 +44,7 @@ class ServiceProvider implements PluginServiceProvider
                     require_once ABSPATH . '/wp-admin/includes/file.php';
                 }
 
-                $initilized = WP_Filesystem();
+                $initilized = WP_Filesystem(false, wp_upload_dir()['basedir']);
 
                 if (!$initilized || !$wp_filesystem instanceof WP_Filesystem_Base) {
                     throw new UnexpectedValueException('There were problem in initializing Wp FileSystem');
