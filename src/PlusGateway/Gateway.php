@@ -222,7 +222,7 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
         $url = (string)$this->session->get(Session::APPROVAL_URL);
 
         if (!$url) {
-            try {
+            /*try */{
                 $returnUrl = $this->wooCommerce->api_request_url($this->id);
                 $notifyUrl = $this->wooCommerce->api_request_url(
                     self::GATEWAY_ID . Ipn::IPN_ENDPOINT_SUFFIX
@@ -233,9 +233,9 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
                     $notifyUrl
                 );
                 $paymentCreator = $paymentCreator->create();
-            } catch (Exception $exc) {
+            }/* catch (Exception $exc) {
                 return '';
-            }
+            }*/
 
             $this->session->set(Session::PAYMENT_ID, $paymentCreator->getId());
 

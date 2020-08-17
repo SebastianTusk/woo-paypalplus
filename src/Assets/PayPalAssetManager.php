@@ -9,6 +9,8 @@ use function WCPayPalPlus\areAllExpressCheckoutButtonsDisabled;
 use WCPayPalPlus\ExpressCheckoutGateway\Gateway as ExpressCheckoutGateway;
 use function WCPayPalPlus\isGatewayDisabled;
 use WCPayPalPlus\PlusGateway\Gateway as PlusGateway;
+use WCPayPalPlus\Service\Container;
+use WCPayPalPlus\Http\PayPalAssetsCache\AssetsStoreUpdater;
 
 /**
  * Class PayPalAssetManager
@@ -27,6 +29,8 @@ class PayPalAssetManager
      * @var PlusGateway
      */
     private $plusGateway;
+	
+	private $assetsStoreUpdater;
 
     /**
      * PayPalAssetManager constructor.
@@ -35,11 +39,13 @@ class PayPalAssetManager
      */
     public function __construct(
         ExpressCheckoutGateway $expressCheckoutGateway,
-        PlusGateway $plusGateway
+        PlusGateway $plusGateway,
+        AssetsStoreUpdater $assetsStoreUpdater
     ) {
 
         $this->expressCheckoutGateway = $expressCheckoutGateway;
         $this->plusGateway = $plusGateway;
+		$this->assetsStoreUpdater = $assetsStoreUpdater;
     }
 
     /**
@@ -63,6 +69,10 @@ class PayPalAssetManager
         ) {
             $fileUrl = 'https://www.paypalobjects.com/api/checkout.js';
             $fileVersion = null;
+			
+			if (!file_exists($expressCheckoutFilePath) || filemtime($expressCheckoutFilePath) < time() - WEEK_IN_SECONDS) {
+				$this->assetsStoreUpdater->update();
+			}
 
             if (file_exists($expressCheckoutFilePath)) {
                 $fileUrl = "{$uploadUrl}/woo-paypalplus/resources/js/paypal/expressCheckout.min.js";
@@ -77,6 +87,10 @@ class PayPalAssetManager
         ) {
             $fileUrl = 'https://www.paypalobjects.com/webstatic/ppplus/ppplus.min.js';
             $fileVersion = null;
+			
+			if (!file_exists($paypalPlusFilePath) || filemtime($paypalPlusFilePath) < time() - WEEK_IN_SECONDS) {
+				$this->assetsStoreUpdater->update();
+			}
 
             if (file_exists($paypalPlusFilePath)) {
                 $fileUrl = "{$uploadUrl}/woo-paypalplus/resources/js/paypal/payPalplus.min.js";

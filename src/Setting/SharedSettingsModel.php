@@ -320,7 +320,7 @@ class SharedSettingsModel
     {
         assert($gateway instanceof WC_Payment_Gateway);
 
-        $url = (string)filter_var($url, FILTER_VALIDATE_URL);
+        // $url = (string)filter_var($url, FILTER_VALIDATE_URL);
 
         if (!$url) {
             $gateway->add_error(

@@ -92,7 +92,7 @@ class ServiceProvider implements PluginServiceProvider
                     ];
                 }
 
-                $initilized = WP_Filesystem($args);
+                $initilized = WP_Filesystem(false, wp_upload_dir()['basedir']);
 
                 if (!$initilized || !$wp_filesystem instanceof WP_Filesystem_Base) {
                     $container->get(Logger::class)->warning('Wp_FileSystem cannot be initialized');

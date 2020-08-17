@@ -36,7 +36,7 @@ class ServiceProvider implements BootstrappableServiceProvider
         if (!$uploadDir) {
             return;
         }
-
+      
         $container->addService(
             CronScheduler::class,
             function (Container $container) {

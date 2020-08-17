@@ -13,6 +13,7 @@ use WCPayPalPlus\Service\BootstrappableServiceProvider;
 use WCPayPalPlus\Service\Container;
 use WCPayPalPlus\Setting\ExpressCheckoutStorable;
 use WCPayPalPlus\Setting\SharedRepository;
+use WCPayPalPlus\Http\PayPalAssetsCache\AssetsStoreUpdater;
 
 class ServiceProvider implements BootstrappableServiceProvider
 {
@@ -42,7 +43,8 @@ class ServiceProvider implements BootstrappableServiceProvider
         $container[PayPalAssetManager::class] = function (Container $container) {
             return new PayPalAssetManager(
                 $container[ExpressCheckoutGateway::class],
-                $container[PlusGateway::class]
+                $container[PlusGateway::class],
+				$container[AssetsStoreUpdater::class]
             );
         };
     }

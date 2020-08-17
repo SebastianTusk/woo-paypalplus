@@ -80,7 +80,7 @@ class Bootstrapper
         } catch (Exception $exc) {
             do_action(self::ACTION_LOG, WC_Log_Levels::ERROR, $exc->getMessage(), compact($exc));
 
-            if (defined('WP_DEBUG') && WP_DEBUG) {
+            /*if (defined('WP_DEBUG') && WP_DEBUG)*/ {
                 throw $exc;
             }
 
