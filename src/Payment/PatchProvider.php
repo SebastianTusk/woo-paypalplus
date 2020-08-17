@@ -69,13 +69,14 @@ class PatchProvider
      */
     public function invoice($invoice_prefix)
     {
-        $invoice_number = preg_replace('/[^a-zA-Z0-9]/', '', $this->order->get_order_number());
+        $invoice_number = $invoice_prefix . preg_replace('/[^a-zA-Z0-9]/', '', $this->order->get_order_number());
+        $invoice_number = apply_filters('woo-paypalplus-invoice-number', $invoice_number, $invoice_prefix, $this->order->get_order_number());
 
         $invoice_patch = new Patch();
         $invoice_patch
             ->setOp('add')
             ->setPath('/transactions/0/invoice_number')
-            ->setValue($invoice_prefix . $invoice_number);
+            ->setValue($invoice_number);
 
         return $invoice_patch;
     }
