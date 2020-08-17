@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInited35769485efe065a2368d2c77a5a607
+class ComposerStaticInit72b13999c8f901375dc83a6c18b6c030
 {
     public static $files = array (
         'ae8941c661623a45e24109134a8c2b19' => __DIR__ . '/..' . '/brain/nonces/inc/helpers.php',
@@ -274,7 +274,10 @@ class ComposerStaticInited35769485efe065a2368d2c77a5a607
         'WCPayPalPlus\\Gateway\\ServiceProvider' => __DIR__ . '/../..' . '/src/Gateway/ServiceProvider.php',
         'WCPayPalPlus\\Http\\PayPalAssetsCache\\AssetsStoreUpdater' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/AssetsStoreUpdater.php',
         'WCPayPalPlus\\Http\\PayPalAssetsCache\\CronScheduler' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/CronScheduler.php',
+        'WCPayPalPlus\\Http\\PayPalAssetsCache\\NullRemoteResourcesStorer' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/NullRemoteResourcesStorer.php',
         'WCPayPalPlus\\Http\\PayPalAssetsCache\\RemoteResourcesStorer' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/RemoteResourcesStorer.php',
+        'WCPayPalPlus\\Http\\PayPalAssetsCache\\RemoteResourcesStorerFactory' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/RemoteResourcesStorerFactory.php',
+        'WCPayPalPlus\\Http\\PayPalAssetsCache\\RemoteResourcesStorerInterface' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/RemoteResourcesStorerInterface.php',
         'WCPayPalPlus\\Http\\PayPalAssetsCache\\ResourceDictionary' => __DIR__ . '/../..' . '/src/Http/PayPalAssetsCache/ResourceDictionary.php',
         'WCPayPalPlus\\Http\\ServiceProvider' => __DIR__ . '/../..' . '/src/Http/ServiceProvider.php',
         'WCPayPalPlus\\Install\\Installer' => __DIR__ . '/../..' . '/src/Install/Installer.php',
@@ -394,9 +397,9 @@ class ComposerStaticInited35769485efe065a2368d2c77a5a607
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInited35769485efe065a2368d2c77a5a607::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInited35769485efe065a2368d2c77a5a607::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInited35769485efe065a2368d2c77a5a607::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit72b13999c8f901375dc83a6c18b6c030::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit72b13999c8f901375dc83a6c18b6c030::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit72b13999c8f901375dc83a6c18b6c030::$classMap;
 
         }, null, ClassLoader::class);
     }
