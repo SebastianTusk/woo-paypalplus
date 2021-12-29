@@ -132,4 +132,10 @@ final class OrderData implements OrderDataProvider
         );
         return $this->format($this->order->get_total() - $shipping_diff);
     }
+
+    
+    public function order()
+    {
+        return $this->order;
+    }
 }

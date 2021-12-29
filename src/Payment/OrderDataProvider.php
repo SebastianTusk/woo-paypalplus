@@ -63,4 +63,6 @@ interface OrderDataProvider
      * @return float
      */
     public function totalDiscount();
+
+    public function order();
 }
