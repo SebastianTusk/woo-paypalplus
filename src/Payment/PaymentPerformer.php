@@ -61,10 +61,19 @@ class PaymentPerformer
         $redirect_urls = $payment->getRedirectUrls();
         $cancelUrl = $redirect_urls->getCancelUrl();
         $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $this->data->get_order() );
-        $redirect_urls->setCancelUrl($cancelUrl);
+        if ($cancelUrl != $redirect_urls->getCancelUrl()) {
+            $cancelUrlPatch = new Patch();
+            $cancelUrlPatch
+                ->setOp('replace')
+                ->setPath('/redirect_urls/cancel_url')
+                ->setValue($cancelUrl);
 
-        $payment->setRedirectUrls($redirect_urls);
-        $payment->update($payment->toJSON());
+            $patches = [
+                $cancelUrlPatch
+            ];
+
+            $payment->update($patches, $this->data->get_context());
+        }
 
         $payment->execute($this->data->get_payment_execution(), $this->data->get_context());
 

@@ -230,4 +230,21 @@ class PatchProvider
             self::COUNTRY_CODE => $this->order->get_billing_country(),
         ];
     }
+
+    /**
+     * @return Patch
+     * @throws InvalidArgumentException
+     */
+    public function cancelUrl($cancelUrl)
+    {
+        $cancelUrlPatch = new Patch();
+        if ($cancelUrl) {
+            $cancelUrlPatch
+                ->setOp('replace')
+                ->setPath('/redirect_urls/cancel_url')
+                ->setValue($cancelUrl);
+        }
+
+        return $cancelUrlPatch;
+    }
 }
