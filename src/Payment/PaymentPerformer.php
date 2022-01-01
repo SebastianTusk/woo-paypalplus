@@ -56,6 +56,16 @@ class PaymentPerformer
     public function execute()
     {
         $payment = $this->data->get_payment();
+
+        // update cancel url from order
+        $redirect_urls = $payment->getRedirectUrls();
+        $cancelUrl = $redirect_urls->getCancelUrl();
+        $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $this->data->get_order() );
+        $redirect_urls->setCancelUrl($cancelUrl);
+
+        $payment->setRedirectUrls($redirect_urls);
+        $payment->update($payment->toJSON());
+
         $payment->execute($this->data->get_payment_execution(), $this->data->get_context());
 
         if (!$this->data->isApproved()) {

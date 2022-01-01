@@ -44,8 +44,6 @@ class PaymentCreatorFactory
         $cancelUrl = $settings->cancelUrl();
         $experienceProfile = $settings->experienceProfileId();
 
-        $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $orderData->order() );
-
         $paymentData = new PaymentData(
             $returnUrl,
             $cancelUrl,

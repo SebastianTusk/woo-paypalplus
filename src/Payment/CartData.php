@@ -132,9 +132,4 @@ final class CartData implements OrderDataProvider
             + $this->cart->get_cart_contents_tax()
         ));
     }
-    
-    public function order()
-    {
-        return null;
-    }
 }
