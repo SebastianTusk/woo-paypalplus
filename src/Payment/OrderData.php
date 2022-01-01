@@ -132,4 +132,14 @@ final class OrderData implements OrderDataProvider
         );
         return $this->format($this->order->get_total() - $shipping_diff);
     }
+
+    /**
+     * Returns the WooCommerce Order object
+     *
+     * @return \WC_Order
+     */
+    public function get_order()
+    {
+        return $this->order;
+    }
 }

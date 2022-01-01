@@ -42,6 +42,8 @@ class PaymentCreatorFactory
 
         $orderData = $this->orderDataFactory->create();
         $cancelUrl = $settings->cancelUrl();
+        // update cancel url from order
+        $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $orderData->get_order() );
         $experienceProfile = $settings->experienceProfileId();
 
         $paymentData = new PaymentData(
