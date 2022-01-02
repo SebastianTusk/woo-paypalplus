@@ -102,7 +102,7 @@ class ServiceProvider implements BootstrappableServiceProvider
         );
 
         add_action(
-            'woocommerce_api_' . ExpressGateway::GATEWAY_ID . '_cancel',
+            'woocommerce_api_' . Gateway::GATEWAY_ID . '_cancel',
             [$container[Gateway::class], 'cancel'],
             12
         );

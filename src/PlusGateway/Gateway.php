@@ -268,7 +268,7 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
         $orderId = $this->session->get(Session::ORDER_ID);
         $order = $this->orderFactory->createById($orderId);
 
-        $cancelUrl = $settings->cancelUrl();
+        $cancelUrl = $this->cancelUrl();
         $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $order );
 
         wp_safe_redirect($cancelUrl);
