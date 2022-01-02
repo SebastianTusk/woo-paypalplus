@@ -25,6 +25,8 @@ use WC_Payment_Gateway;
 use OutOfBoundsException;
 use WC_Order;
 use Exception;
+use WCPayPalPlus\Api\ApiContextFactory;
+use Inpsyde\Lib\PayPal\Api\Payment;
 
 /**
  * Class Gateway
@@ -219,7 +221,16 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
      */
     private function createPayment()
     {
+        $paymentId = $this->session->get(Session::PAYMENT_ID);
         $url = (string)$this->session->get(Session::APPROVAL_URL);
+
+        $apiContext = ApiContextFactory::getFromConfiguration();
+        try {
+            $payment = Payment::get($paymentId, $apiContext);
+        } catch (Exception $exc) {
+            $this->logger->error($exc->getMessage());
+            $url = null;
+        }
 
         if (!$url) {
             /*try */{
