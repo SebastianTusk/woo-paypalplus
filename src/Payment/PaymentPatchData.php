@@ -167,15 +167,6 @@ class PaymentPatchData
         if ($orderNeedProcessing) {
             $patches[] = $this->patchProvider->shipping();
         }
-
-        $payment = $this->get_payment();
-        $redirect_urls = $payment->getRedirectUrls();
-        $cancelUrl = $redirect_urls->getCancelUrl();
-        $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $this->patchData->get_order() );
-        if ($cancelUrl != $redirect_urls->getCancelUrl()) {
-            $patches[] = $this->patchProvider->cancelUrl();
-        }
-
         return $patches;
     }
 }

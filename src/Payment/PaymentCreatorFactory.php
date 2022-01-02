@@ -35,17 +35,12 @@ class PaymentCreatorFactory
      * @param $notifyUrl
      * @return PaymentCreator
      */
-    public function create(Storable $settings, $returnUrl, $notifyUrl)
+    public function create(Storable $settings, $returnUrl, $notifyUrl, $cancelUrl)
     {
         assert(is_string($returnUrl));
         assert(is_string($notifyUrl));
 
         $orderData = $this->orderDataFactory->create();
-        $cancelUrl = $settings->cancelUrl();
-        // update cancel url from order
-        if (method_exists($orderData, "get_order")) {
-            $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $orderData->get_order() );
-        }
         $experienceProfile = $settings->experienceProfileId();
 
         $paymentData = new PaymentData(

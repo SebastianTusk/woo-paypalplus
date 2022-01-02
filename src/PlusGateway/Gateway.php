@@ -227,10 +227,14 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
                 $notifyUrl = $this->wooCommerce->api_request_url(
                     self::GATEWAY_ID . Ipn::IPN_ENDPOINT_SUFFIX
                 );
+                $cancelUrl = $this->wooCommerce->api_request_url(
+                    self::GATEWAY_ID . '_cancel'
+                );
                 $paymentCreator = $this->paymentCreatorFactory->create(
                     $this,
                     $returnUrl,
-                    $notifyUrl
+                    $notifyUrl,
+                    $cancelUrl
                 );
                 $paymentCreator = $paymentCreator->create();
             }/* catch (Exception $exc) {
@@ -257,5 +261,16 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
         }
 
         return $locale;
+    }
+
+    public function cancel()
+    {
+        $orderId = $this->session->get(Session::ORDER_ID);
+        $order = $this->orderFactory->createById($orderId);
+
+        $cancelUrl = $settings->cancelUrl();
+        $cancelUrl = apply_filters( 'woopaypalplus.cancel_url', $cancelUrl, $order );
+
+        wp_safe_redirect($cancelUrl);
     }
 }
