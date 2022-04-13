@@ -167,6 +167,8 @@ final class Gateway extends WC_Payment_Gateway implements PlusStorable
      */
     public function process_payment($orderId)
     {
+        $this->session->set(Session::ORDER_ID, $orderId);
+
         $order = new WC_Order($orderId);
 
         return [
